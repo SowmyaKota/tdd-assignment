@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Calculator {
 	public int add(String numbers) {
@@ -11,6 +12,7 @@ public class Calculator {
 			int delimiterIndex=numbers.indexOf("\n");
 			delimiter=numbers.substring(2, delimiterIndex);
 			numbers=numbers.substring(delimiterIndex+1);
+			delimiter=java.util.regex.Pattern.quote(delimiter);
 		}
 		
 		String[] tokens=numbers.split(delimiter);
@@ -26,7 +28,8 @@ public class Calculator {
 			}
 		}
 		if(!negatives.isEmpty()) {
-			throw new IllegalArgumentException("Negative numbers are not allowed:"+negatives);
+			throw new IllegalArgumentException("Negative numbers are not allowed:["+
+		negatives.stream().map(String :: valueOf).collect(Collectors.joining(","))+"]");
 		}
 		return sum;
 	}

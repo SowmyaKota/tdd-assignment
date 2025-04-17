@@ -43,4 +43,21 @@ public class CalculatorTest {
 	assertEquals(10, calculator.add("//#\n1#2#3#4"));
 	}
 	
+	@Test
+	public void testNegativeNumberThrowsException() {
+		Exception exception=assertThrows(IllegalArgumentException.class,()->{
+			calculator.add("1,-2");
+		});
+		assertTrue(exception.getMessage().toLowerCase().contains("negative numbers"));
+
+	}
+	
+	@Test
+	public void testMultipleNegativeNumber() {
+		Exception exception=assertThrows(IllegalArgumentException.class,()->{
+			calculator.add("1,-2,-5,4");
+		});
+		assertTrue(exception.getMessage().toLowerCase().contains("negative numbers"));
+
+	}
 }
